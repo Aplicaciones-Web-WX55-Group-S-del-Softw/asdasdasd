@@ -1,6 +1,8 @@
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
 using si730ebu202210584.API.Inventory.Domain.Model.Aggregates;
+using si730ebu202210584.API.Observability.Domain.Model;
+using si730ebu202210584.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 
 namespace si730ebu202210584.API.Shared.Infrastructure.Persistence.EFC.Configuration
 {
@@ -35,6 +37,21 @@ namespace si730ebu202210584.API.Shared.Infrastructure.Persistence.EFC.Configurat
                     ai.WithOwner().HasForeignKey("Id");
                 });
             
+            builder.Entity<Thing>().ToTable("ThingStates");
+            builder.Entity<ThingState>().HasKey(s => s.Id);
+            builder.Entity<ThingState>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<ThingState>().Property(s => s.Model).IsRequired();
+            builder.Entity<ThingState>().Property(s => s.CurrentOperationMode).IsRequired();
+            builder.Entity<ThingState>().Property(s => s.ThingSerialNumber).IsRequired();
+            builder.Entity<ThingState>().Property(s => s.CurrentHumidity).IsRequired();
+            builder.Entity<ThingState>().Property(s => s.CurrentTemperature).IsRequired();
+            builder.Entity<ThingState>().Property(s => s.CollectedAt).IsRequired();
+
+            builder.Entity<Thing>()
+                .HasMany(s => s.ThingStates);
+        
+            // Apply SnakeCase Naming Convention
+            builder.UseSnakeCaseNamingConvention();
         }
     }
 }

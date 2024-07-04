@@ -4,6 +4,10 @@ using si730ebu202210584.API.Inventory.Application.Internal.CommandServices;
 using si730ebu202210584.API.Inventory.Domain.Repositories;
 using si730ebu202210584.API.Inventory.Domain.Services;
 using si730ebu202210584.API.Inventory.Infrastructure.Persistence.EFC.Repositories;
+using si730ebu202210584.API.Observability.Application.Internal;
+using si730ebu202210584.API.Observability.Domain.Repositories;
+using si730ebu202210584.API.Observability.Domain.Services;
+using si730ebu202210584.API.Observability.Infrastructure.Persistence.EFC.Repositories;
 using si730ebu202210584.API.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using si730ebu202210584.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 using si730ebu202210584.API.Shared.Infrastructure.Persistence.EFC.Repositories;
@@ -43,6 +47,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IThingRepository, ThingRepository>();
 builder.Services.AddScoped<IThingCommandService, ThingCommandService>();
 
+builder.Services.AddScoped<IThingStateRepository, ThingStateRepository>();
+builder.Services.AddScoped<IThingStateCommandService, ThingStateCommandService>();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

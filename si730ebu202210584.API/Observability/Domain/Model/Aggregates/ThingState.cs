@@ -1,4 +1,6 @@
-﻿namespace si730ebu202210584.API.Observability.Domain.Model;
+﻿using si730ebu202210584.API.Observability.Domain.Model.Commands;
+
+namespace si730ebu202210584.API.Observability.Domain.Model;
 
 public partial class ThingState
 {
@@ -14,7 +16,8 @@ public partial class ThingState
         CollectedAt = collectedAt;
 
     }
-    
+    public ICollection<ThingState> ThingStates { get; }
+
     public int Id { get; }
     public string Model { get; private set; }
     public string ThingSerialNumber { get; private set; }
@@ -22,4 +25,15 @@ public partial class ThingState
     public float CurrentTemperature { get; private set; }
     public float CurrentHumidity { get; private set; }
     public DateTime CollectedAt { get; private set; }
+
+    public ThingState(CreateThingStateCommand command)
+    {
+        Model = command.Model;
+        ThingSerialNumber = command.ThingSerialNumber;
+        CurrentOperationMode = command.CurrentOperationMode;
+        CurrentTemperature = command.CurrentTemperature;
+        CurrentHumidity = command.CurrentHumidity;
+        CollectedAt = command.CollectedAt;
+        
+    }
 }

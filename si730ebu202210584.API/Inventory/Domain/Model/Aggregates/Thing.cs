@@ -1,5 +1,6 @@
 ﻿using si730ebu202210584.API.Inventory.Domain.Model.Commands;
 using si730ebu202210584.API.Inventory.Domain.Model.ValueObjects;
+using si730ebu202210584.API.Observability.Domain.Model;
 
 namespace si730ebu202210584.API.Inventory.Domain.Model.Aggregates;
 
@@ -15,7 +16,7 @@ public class Thing
     public Thing()
     {
     }
-        
+    public ICollection<ThingState> ThingStates { get; }
     public Thing(CreateThingCommand command)
     {
         SerialNumber = new SerialNumber();
